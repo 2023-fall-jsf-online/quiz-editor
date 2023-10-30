@@ -46,7 +46,6 @@ export class AppComponent implements OnInit{
 
     this.quizzes.push(newQuiz);
 
-    console.log(this.quizzes);
-    this.selectQuiz(newQuiz);
+    this.selectedQuiz = newQuiz;
   }
 }
