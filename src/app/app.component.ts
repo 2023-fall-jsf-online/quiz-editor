@@ -37,4 +37,16 @@ export class AppComponent implements OnInit{
   selectQuiz = (q: QuizDisplay) => {
     this.selectedQuiz = q;
   };
+
+  addNewQuiz = () => {
+    let newQuiz: QuizDisplay = {
+      quizName: "Untitled Quiz",
+      quizQuestions: []
+    }
+
+    this.quizzes.push(newQuiz);
+
+    console.log(this.quizzes);
+    this.selectQuiz(newQuiz);
+  }
 }
