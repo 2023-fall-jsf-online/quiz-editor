@@ -28,7 +28,9 @@
       </div>
       <div class="card">
         <div class="card-header">General</div>
-        <div class="card-body">{{ selectedQuiz.quizName }}</div>
+        <div class="card-body">
+          <input type="text" class="form-control" value="{{ selectedQuiz.quizName }}" ng-model="selectedQuiz">
+        </div>
       </div>
       <div class="card mt-3">
         <div class="card-header">Questions</div>
