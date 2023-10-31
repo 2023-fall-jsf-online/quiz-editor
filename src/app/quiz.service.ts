@@ -24,13 +24,7 @@ export class QuizService {
         }
         , {
             name: 'Quiz 2'
-            , questions: [
-              {
-                name: 'Question 1'                
-              }, {
-                name: 'Question 2'
-              }
-            ]
+            , questions: []
         }
     ];
 
