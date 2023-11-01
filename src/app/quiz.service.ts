@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-interface quiz {
+interface Quiz {
   name: string
-  , questions: question[]
+  , questions: Question[]
 }
 
-interface question {
+interface Question {
   name: string
 }
 
@@ -17,7 +17,7 @@ export class QuizService {
   constructor() { }
 
   loadQuizzes = () => {
-    const quizzesFromWeb: quiz[] = [
+    const quizzesFromWeb: Quiz[] = [
       {
         name: "Quiz 1"
         , questions: [
