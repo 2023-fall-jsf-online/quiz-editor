@@ -35,6 +35,5 @@ export class AppComponent implements OnInit {
 
   selectQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
-    console.log(this.selectedQuiz);
   }
 }
