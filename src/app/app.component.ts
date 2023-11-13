@@ -19,6 +19,8 @@ interface QuestionDisplay {
 export class AppComponent implements OnInit {
   title = 'quiz-editor';
 
+  errorLoadingQuizzes = false;
+
   constructor(
     public quizSvc: QuizService
   ) {
@@ -40,7 +42,8 @@ export class AppComponent implements OnInit {
           }))
         }
         , error: err => {
-          console.error(err);
+          console.error(err.error);
+          this.errorLoadingQuizzes = true;
         }
       }
     );
