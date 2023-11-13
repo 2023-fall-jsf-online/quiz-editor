@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
   constructor(public quizSvc: QuizService) {}
 
   errorLoadingQuizzes: boolean = false;
+  loadingQuizzes: boolean = true;
 
   loadQuizzesFromCloud = async () => {
     try {
@@ -36,7 +37,9 @@ export class AppComponent implements OnInit{
     } catch (err) {
       console.error(err);
       this.errorLoadingQuizzes = true;
+      this.loadingQuizzes = false;
     }
+    this.loadingQuizzes = false;
   }
 
   ngOnInit(): void {
