@@ -108,4 +108,20 @@ export class AppComponent implements OnInit{
       console.error(err);
     }
   }
+
+  jsPromiseThree = async () => {
+    try {
+      const x = this.quizSvc.getMagicNumber(true);
+      console.log(x);
+
+      const y = this.quizSvc.getMagicNumber(true);
+      console.log(y);
+
+      const results = await Promise.all([x, y]);
+      //const results = await Promise.race([x, y]);
+      console.log(results);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
