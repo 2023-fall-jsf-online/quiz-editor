@@ -96,4 +96,16 @@ export class AppComponent implements OnInit{
       }
     )
   }
+
+  jsPromiseTwo = async () => {
+    try {
+      const x = await this.quizSvc.getMagicNumber(true);
+      console.log(x);
+
+      const y = await this.quizSvc.getMagicNumber(true);
+      console.log(y);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
