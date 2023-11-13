@@ -26,8 +26,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     const quizzes = this.quizSvc.loadQuizzes();
 
-    quizzes.subscribe(
-      data => {
+    quizzes.subscribe({
+      next: data => {
         this.quizzes = data.map(x => ({
           quizName: x.name,
           quizQuestions: x.questions.map(y => ({
@@ -36,11 +36,11 @@ export class AppComponent implements OnInit{
           markedForDelete: false
         }));
       },
-      err => {
+      error: err => {
         console.error(err.error);
         this.errorLoadingQuizzes = true;
       }
-    );
+    });
   }
 
   quizzes: QuizDisplay[] = [];
