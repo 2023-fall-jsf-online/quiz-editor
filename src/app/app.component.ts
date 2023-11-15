@@ -27,28 +27,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const quizzes = this.quizSvc.loadQuizzes();
-    console.log(quizzes);
+    this.loadQuizzesFromCloud();
+  }
 
-    quizzes.subscribe(
-      {
-        next: data => {
-          this.quizzes = data.map(x => ({
-            quizName: x.name
-            , quizQuestions: x.questions.map(y => ({
-              questionName: y.name
-            }))
-            , markedForDelete: false
-          }))
-        }
-        , error: err => {
-          console.error(err.error);
-          this.errorLoadingQuizzes = true;
-        }
-      }
-    );
-
-    console.log(this.quizzes);
+  loadQuizzesFromCloud = async () => {
+    try {
+      const quizzes = await this.quizSvc.loadQuizzes();
+      this.quizzes = quizzes.map(x => ({
+        quizName: x.name
+        , quizQuestions: x.questions.map(y => ({
+          questionName: y.name
+        }))
+        , markedForDelete: false
+      }))
+    } catch (err) {
+      console.error(err);
+      this.errorLoadingQuizzes = true;
+    }
   }
 
   quizzes: QuizDisplay[] = [];
