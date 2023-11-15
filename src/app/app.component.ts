@@ -92,4 +92,36 @@ export class AppComponent implements OnInit {
       this.selectedQuiz.quizQuestions = this.selectedQuiz.quizQuestions.filter(x => x !== questionToRemove);
     }
   };
+
+  jsPromisesOne = () => {
+    const magicNumberPromise = this.quizSvc.getMagicNumber(true)
+        .then(n => {
+          console.log(n)
+        })
+        .catch(err => {
+          console.error(err)
+        });
+
+  }
+
+  jsPromisesTwo = async () => {
+    try {
+      const magicNumberPromise = await this.quizSvc.getMagicNumber(true);
+      console.log(magicNumberPromise);
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  jsPromisesThree =async () => {
+    try {
+      let magicNumberPromises = []
+      magicNumberPromises.push(this.quizSvc.getMagicNumber(true));
+      magicNumberPromises.push(this.quizSvc.getMagicNumber(true));
+      const results = await Promise.all(magicNumberPromises);
+      console.log(results);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
