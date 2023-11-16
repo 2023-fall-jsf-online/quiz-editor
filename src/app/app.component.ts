@@ -33,8 +33,14 @@ export class AppComponent implements OnInit{
         questionName: y.name
       }))
     }))
-    console.log(this.quizzes)
+    console.log(this.quizzes);
   }
 
   quizzes: QuizDisplay[] = [];
+
+  selectedQuiz: QuizDisplay | undefined = undefined;
+
+  selectQuiz = (q: QuizDisplay) => {
+    this.selectedQuiz= q;
+  };
 }
