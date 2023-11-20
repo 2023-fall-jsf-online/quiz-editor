@@ -21,9 +21,29 @@ export class QuizService {
   loadQuizzes = () => {
 
     const quizzesFromWeb = this.angularHttpClient.get<QuizFromWeb[]>(
-      "https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz"
+      "https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Shabnam%20Noorzai"
     );
 
     return quizzesFromWeb;
+  };
+
+  getMagicNumber = (callerWantsToSucceed: boolean): Promise<number> => {
+    return new Promise<number>(
+      (resolve, reject) => {
+
+        //
+        // Some fancy long running code here...
+        //
+
+        // Ultimately resolve if successful.
+        if (callerWantsToSucceed) {
+          resolve(42);
+        }
+        // Or reject if failure.
+        else {
+          reject("Error");
+        }
+      }
+    );
   };
 }
