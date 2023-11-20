@@ -16,6 +16,7 @@ interface QuestionDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'quiz-editor';
 
@@ -28,7 +29,23 @@ export class AppComponent implements OnInit {
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    this.quizzes = quizzes.map(x => ({
+    quizzes.subscribe(
+      data => {
+        console.log(data);
+        this.quizzes = data.map(x => ({
+          quizName: x.name,
+          quizQuestions: x.questions.map(y => ({
+            questionName: y.name
+          })),
+          markedForDelete: false
+        }));
+      },
+      err => {
+        console.error(err);
+      }
+    );
+
+    /* this.quizzes = quizzes.map(x => ({
       quizName: x.name
       , quizQuestions: x.questions.map((y: any) => ({
         questionName: y.name
@@ -36,7 +53,7 @@ export class AppComponent implements OnInit {
       , markedForDelete: false
     }));
 
-    console.log(this.quizzes);
+    console.log(this.quizzes); */
   }
 
   quizzes: QuizDisplay[] = [];
