@@ -2,16 +2,23 @@
   <div 
     class="row"
     *ngIf="errorLoadingQuizzes"
-  >
+   >
     <div class="col-md-12">
       <div class="alert alert-info mt-3">
         Error loading quizzes, Please try again later...
       </div>
     </div>
   </div>
+    <div class="row" *ngIf="loading">
+      <div class="col-md-12">
+        <div class="alert alert-info mt-3">
+          The page is loading...
+        </div>
+      </div>
+    </div>
   <div 
     class="row"
-    *ngIf="!errorLoadingQuizzes"
+    *ngIf="!errorLoadingQuizzes && !loading"
     >
     <div class="col-md-4">
       <button 
@@ -127,6 +134,20 @@
         </h2>
         <p>
           Select or add a new quiz
+          <button 
+            class="btn btn-link"
+            (click)="jsPromisesOne()"  
+          >
+            One
+          </button>
+          <button 
+            class="btn btn-link" 
+            (click)="jsPromisesTwo()">
+            Two
+          </button>
+          <button class="btn btn-link" (click)="jsPromisesThree()">
+            Three
+          </button>
         </p>
       </div>
     </div>
