@@ -38,5 +38,12 @@ export class AppComponent implements OnInit {
     console.log(quizzes);
   }
 
+  selectedQuiz: QuizDisplay | undefined = undefined;
+
+  selectQuiz = (quiz: QuizDisplay) => {
+    this.selectedQuiz = quiz
+    console.log(this.selectedQuiz);
+  };
+
   quizzes: QuizDisplay[] = [];
 }
