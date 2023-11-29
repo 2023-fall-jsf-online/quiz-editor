@@ -10,7 +10,7 @@ export class QuizService {
   loadQuizes = () => {
     const quizzesFromWeb: any[] = [
       {
-        name: 'Quiz 1'
+        name: 'ABC'
         , questions: [
           {
             name: 'Question 1'
@@ -21,7 +21,7 @@ export class QuizService {
         ]
       }
       , {
-        name: 'Quiz 2'
+        name: 'DEF'
         , questions: [
           {
             name: 'Question 1'
