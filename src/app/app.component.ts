@@ -28,7 +28,22 @@ export class AppComponent implements OnInit {
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    this.quizzes = quizzes.map(x => ({
+    quizzes.subscribe(
+      data => {
+        this.quizzes = data.map(x => ({
+          quizName: x.name
+          , quizQuestions: x.questions.map(y => ({
+            questionName: y.name
+          }))
+          , markedForDelete: false
+        }));
+      }
+      , err => {
+        console.error(err);
+      }
+    );
+
+   /**  this.quizzes = quizzes.map(x => ({
       quizName: x.name
       , quizQuestions: x.questions.map((y: any) => ({
         questionName: y.name
@@ -37,6 +52,7 @@ export class AppComponent implements OnInit {
     }));
 
     console.log(this.quizzes);
+    */
   }
 
   quizzes: QuizDisplay[] = [];
