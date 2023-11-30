@@ -61,4 +61,10 @@ export class AppComponent implements OnInit {
     console.log(this.selectQuiz);
   };
 
+  editedQuizName = "";
+  editQuizName = () => {
+    if (this.selectedQuiz != undefined) {
+      this.selectedQuiz.quizName = this.editedQuizName;
+    }
+  }
 }

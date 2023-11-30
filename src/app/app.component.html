@@ -30,7 +30,10 @@
       *ngIf="selectedQuiz != undefined"
     >
       <div class="my-3">
-        <button class="btn btn-outline-success">
+        <button 
+          class="btn btn-outline-success"
+          (click)="editQuizName()"
+        >
           Save
         </button>
         <button class="btn btn-link">
@@ -41,7 +44,20 @@
             Quiz Name
           </div>
           <div class="card-body">
-            <input type="text" class="form-control" value="{{ selectedQuiz.quizName }}">
+            <input [(ngModel)]="editedQuizName" type="text" class="form-control" value="{{ selectedQuiz.quizName }}">
+          </div>
+        </div>
+        <div class="card my-1">
+          <div class="card-header">
+            Questions
+          </div>
+          <div class="card-body">
+            <button 
+            class="list-group-item list-group-item-action"
+            *ngFor="let question of selectedQuiz.quizQuestions"
+            >
+              {{ question.questionName }}
+            </button>
           </div>
         </div>
       </div>
