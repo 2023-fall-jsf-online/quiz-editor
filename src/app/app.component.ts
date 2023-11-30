@@ -25,11 +25,13 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  errorLoadingQuizzes = false;
+
   ngOnInit() {
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    quizzes.subscribe(
+     quizzes.subscribe(
       data => {
         console.log(data);
         this.quizzes = data.map(x => ({
@@ -41,10 +43,12 @@ export class AppComponent implements OnInit {
         }));
       },
       err => {
-        console.error(err);
+        console.error(err.error);
+        this.errorLoadingQuizzes = true;
       }
     );
 
+    // instead of mapping over, we subscribed to an observable above.
     /* this.quizzes = quizzes.map(x => ({
       quizName: x.name
       , quizQuestions: x.questions.map((y: any) => ({
