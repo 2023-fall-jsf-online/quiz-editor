@@ -13,10 +13,10 @@ export class QuizService {
         name: 'ABC'
         , questions: [
           {
-            name: 'Question 1'
+            name: 'What kind of movie do you like?'
           }
           , {
-            name: 'Question 1'
+            name: 'What is the name of that girl?'
           }
         ]
       }
@@ -24,10 +24,10 @@ export class QuizService {
         name: 'DEF'
         , questions: [
           {
-            name: 'Question 1'
+            name: 'What is your favorite fruit?'
           }
           , {
-            name: 'Question 1'
+            name: 'Do you like watching movies?'
           }
         ]
       }
