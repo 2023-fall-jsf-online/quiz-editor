@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <button class="btn btn-outline-success my-3">
+      <button 
+        class="btn btn-outline-success my-3"
+        (click)="addNewQuiz()"
+      >
         Add New Quiz
       </button>
       <div class="card">
@@ -12,11 +15,11 @@
             (click)="selectQuiz(q)"
             [class.active]="q === selectedQuiz"
           >
-            {{ q.quizzName }}
+            {{ q.quizName }}
             <small 
               class="font-itallic font-weight-lighter"
             >
-              {{ q.quizzQuestions.length }} question
+              {{ q.quizQuestions.length }} question
             </small>
           </button>
         </div>
@@ -38,7 +41,7 @@
             Quiz List
           </div>
           <div class="card-body">
-            {{ selectedQuiz.quizzName }}
+            {{ selectedQuiz.quizName }}
           </div>
         </div>
       </div>
