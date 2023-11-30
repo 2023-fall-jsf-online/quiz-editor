@@ -46,4 +46,11 @@ export class AppComponent implements OnInit {
   };
 
   quizzes: QuizDisplay[] = [];
+
+  addNewQuizz = (name: string) => {
+    const newQuiz = {
+      quizName: name
+      , quizQuestions: []
+    };
+  }
 }
