@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
-  quizzName: string;
+  quizName: string;
   quizzQuestions: QuestionDisplay[];
 }
 
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     const quizzes = this.quizSvc.loadQuizes();
 
     this.quizzes = quizzes.map(x => ({
-      quizzName: x.name
+      quizName: x.name
       , quizzQuestions: x.questions.map((y: any) => ({
         questionName: y.name
       }))
@@ -47,10 +47,18 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
 
-  addNewQuizz = (name: string) => {
+  addNewQuiz = () => {
     const newQuiz = {
-      quizName: name
+      quizName: "Untitled Quiz"
       , quizQuestions: []
     };
-  }
+
+    this.quizzes = [
+      ...this.quizzes
+      , newQuiz 
+    ];
+
+    this.selectedQuiz = newQuiz;
+  };
+
 }
