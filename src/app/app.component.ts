@@ -27,8 +27,32 @@ export class AppComponent implements OnInit {
 
   errorLoadingQuizzes = false;
 
+  loadQuizzesFromCloud = async () => {
+
+    try {
+      const quizzes = await this.quizSvc.loadQuizzes() ?? [];
+      console.log(quizzes);
+
+        this.quizzes = quizzes.map(x => ({
+          quizName: x.name,
+          quizQuestions: x.questions.map(y => ({
+            questionName: y.name
+          })),
+          markedForDelete: false
+        }));
+    }
+
+    catch(err) {
+      console.error(err);
+      this.errorLoadingQuizzes = true;
+    }
+  };
+
   ngOnInit() {
-    const quizzes = this.quizSvc.loadQuizzes();
+
+    this.loadQuizzesFromCloud();
+
+    /* const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
      quizzes.subscribe( {
@@ -47,7 +71,7 @@ export class AppComponent implements OnInit {
         this.errorLoadingQuizzes = true;
       }
   });
-
+ */
     // instead of mapping over, we subscribed to an observable above.
     /* this.quizzes = quizzes.map(x => ({
       quizName: x.name
@@ -101,4 +125,60 @@ export class AppComponent implements OnInit {
       this.selectedQuiz.quizQuestions = this.selectedQuiz.quizQuestions.filter(x => x !== questionToRemove);
     }
   };
+
+  jsPromisesOne = () => {
+    const n = this.quizSvc.getMagicNumber(true);
+    console.log(n);
+
+    n.then(
+      number => {
+        console.log(number);
+        
+        const n2 = this.quizSvc.getMagicNumber(true);
+        console.log(n2);
+
+        n2.then(x => console.log(x)).catch(e => console.log(e));
+      }
+    ).catch(
+      err => {
+        console.log(err);
+      }
+    )
+  };
+
+  jsPromisesTwo = async () => {
+
+    try {
+    const x = await this.quizSvc.getMagicNumber(true);
+    console.log(x);
+
+    const y = await this.quizSvc.getMagicNumber(true);
+    console.log(y);
+    }
+
+    catch (err) {
+      console.error(err);
+    };
+  }
+
+  jsPromisesThree = async () => {
+
+    try {
+    const x = this.quizSvc.getMagicNumber(true);
+    console.log(x);
+
+    const y = this.quizSvc.getMagicNumber(true);
+    console.log(y);
+
+    const results = await Promise.all([x, y]);
+    // const results = await Promise.race([x, y]); returns first number back
+    console.log(results);
+    }
+
+
+    catch (err) {
+      console.error(err);
+    };
+  }
 }
+ 
