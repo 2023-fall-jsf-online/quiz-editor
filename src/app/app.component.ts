@@ -31,8 +31,8 @@ errorLoadingQuizzes = false;
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    quizzes.subscribe(
-      data => {
+    quizzes.subscribe({
+      next: data => {
         this.quizzes = data.map(x => ({
           quizName: x.name
           , quizQuestions: x.questions.map(y => ({
@@ -41,11 +41,11 @@ errorLoadingQuizzes = false;
           , markedForDelete: false
         }));
       }
-      , err => {
+      , error: err => {
         console.error(err.error);
         this.errorLoadingQuizzes = true;
       }
-    );
+  });
 
    /**  this.quizzes = quizzes.map(x => ({
       quizName: x.name
