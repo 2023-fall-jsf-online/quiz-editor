@@ -24,12 +24,14 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  errorLoadingQuizzes = false;
+
   ngOnInit() {
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    quizzes.subscribe(
-      data => {
+    quizzes.subscribe({
+      next: data => {
         console.log(data);
         this.quizzes = data.map(x => ({
           quizName: x.name
@@ -39,10 +41,11 @@ export class AppComponent implements OnInit {
           , markedForDelete: false
         }));
       }
-      , err => {
-        console.error(err);
+      , error: err => {
+        console.error(err.error);
+        this.errorLoadingQuizzes = true;
       }
-    );
+  });
 
     /*this.quizzes = quizzes.map(x => ({
       quizName: x.name
