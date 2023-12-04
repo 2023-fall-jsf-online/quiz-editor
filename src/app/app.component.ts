@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService, QuizFromWeb } from './quiz.service';
+import { QuizService, QuizFromWeb, ShapeForSavingNewQuizzes, ShapeForSavingEditedQuizzes } from './quiz.service';
 import {
   trigger,
   transition,
@@ -190,19 +190,41 @@ export class AppComponent implements OnInit{
     return this.getNewlyAddedQuizzes().length;
   }
 
-  getEditedQuizCount = () => {
+  getEditedQuizzes = () => {
     return this.quizzes.filter(x => x.quizName + x.quizQuestions.map(y => '~' + y.questionName).join('') !== x.naiveQuizChecksum 
     && !x.newlyAddedQuiz 
     && !x.markedForDelete);
   }
 
   get editedQuizCount() {
-    return this.getEditedQuizCount().length;
+    return this.getEditedQuizzes().length;
   }
 
   detailsFromLeftAnimationState = "leftPosition";
 
   detailsFromLeftAnimationDone = () => {
     this.detailsFromLeftAnimationState = "leftPosition";
+  }
+
+  saveQuizzes = async () => {
+    try {
+      const newQuizzes: ShapeForSavingNewQuizzes[] = this.getNewlyAddedQuizzes().map(x => ({
+        quizName: x.quizName,
+        quizQuestions: x.quizQuestions.map(y => y.questionName)
+      }));
+
+      const editedQuizzes: ShapeForSavingEditedQuizzes[] = this.getEditedQuizzes().map(x => ({
+        quiz: x.quizName,
+        questions: x.quizQuestions.map(y => ({
+          question: y.questionName
+        }))
+      }));;
+
+      const updatedQuizzesCount = await this.quizSvc.saveQuizzes(editedQuizzes, newQuizzes);
+
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

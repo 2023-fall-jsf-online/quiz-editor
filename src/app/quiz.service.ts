@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
 export interface QuizFromWeb {
@@ -7,6 +7,16 @@ export interface QuizFromWeb {
   questions: {
     name: string;
   }[];
+}
+
+export interface ShapeForSavingEditedQuizzes {
+  quiz: string;
+  questions: { question: string; }[];
+}
+
+export interface ShapeForSavingNewQuizzes {
+  quizName: string;
+  quizQuestions: string[];
 }
 
 @Injectable({
@@ -24,6 +34,32 @@ export class QuizService {
 
     return quizzesFromWeb;
   };
+
+  saveQuizzes = (
+    changedQuizzes: ShapeForSavingEditedQuizzes[]
+    , newQuizzes: ShapeForSavingNewQuizzes[] = []
+  ) => {
+
+    let h = new HttpHeaders({
+      'Content-Type': 'application/json'
+      , 'X-Sas-Token': 'sig=K2WE6NQPtyoV6ke5hwPEaEaW52fgvyFWUeCEdPJls1s'
+    });
+
+    //console.log(h);
+
+    return this.httpClient.post(
+      'https://modern-js.azurewebsites.net/save-quizzes-proxy'
+      , JSON.stringify(
+        {
+          "changedQuizzes": changedQuizzes
+          , "newQuizzes": newQuizzes
+        }
+      )
+      , {
+        headers: h
+      }
+    ).toPromise();
+  }
 
   getMagicNumber = (callerWantsToSucceed: boolean): Promise<number> => {
     return new Promise<number>(
