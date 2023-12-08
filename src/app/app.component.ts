@@ -19,6 +19,8 @@ interface QuestionDisplay {
 export class AppComponent implements OnInit {
   title = 'quiz-editor';
 
+  loading = false;
+
   constructor(
     public quizSvc: QuizService
   ) {
@@ -27,6 +29,7 @@ export class AppComponent implements OnInit {
   errorLoadingQuizzes = false;
 
   loadQuizzesFromCloud = async () => {
+    this.loading = true;
 
     try {
       const quizzes = await this.quizSvc.loadQuizzes() ?? [];
@@ -42,7 +45,8 @@ export class AppComponent implements OnInit {
     }
     catch (err) {
       console.error(err);
-      this.errorLoadingQuizzes = true;      
+      this.errorLoadingQuizzes = true;
+      this.loading = false;     
     }
   };
 
