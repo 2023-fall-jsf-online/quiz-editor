@@ -42,8 +42,9 @@
         <div class="card-body">
           <input
             type="text"
-            [(ngModel)]="selectedQuiz.quizName"
             class="form-control"
+            placeholder="Enter quiz name"
+            [(ngModel)]="selectedQuiz.quizName"
           >
         </div>
       </div>
@@ -65,8 +66,9 @@
             <div class="col-md-10">
               <input
                 type="text"
-                [(ngModel)]="question.questionName"
                 class="form-control"
+                placeholder="Enter question text"
+                [(ngModel)]="question.questionName"
               >
             </div>
             <div class="col-md-2">
