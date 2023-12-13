@@ -28,13 +28,20 @@ export class AppComponent implements OnInit {
     const quizzes = this.quizSvc.loadQuizzes();
     console.log(quizzes);
 
-    this.quizzes = quizzes.map(x => ({
-      quizName: x.name
-      , quizQuestions: x.questions.map((y: any) => ({
-        questionName: y.name
-      }))
-      , markedForDelete: false
-    }));
+    quizzes.subscribe(
+      data => {
+        this.quizzes = data.map(x => ({
+            quizName: x.name,
+            quizQuestions: x.questions.map(y => ({
+                questionName: y.name
+            })),
+            markedForDelete: false
+        }));
+      },
+      err => {
+        console.log(err);
+      }
+    );
 
     console.log(this.quizzes);
   }
@@ -57,14 +64,14 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [
       ...this.quizzes
-      , newQuiz 
+      , newQuiz
     ];
 
     this.selectedQuiz = newQuiz;
   };
 
   addNewQuestion = () => {
-    
+
     if (this.selectedQuiz) {
       this.selectedQuiz.quizQuestions = [
         ...this.selectedQuiz.quizQuestions
