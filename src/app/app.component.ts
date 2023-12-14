@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [
       ...this.quizzes
-      , newQuiz 
+      , newQuiz // adds the new quiz constant at the end
     ];
 
     this.selectedQuiz = newQuiz;
