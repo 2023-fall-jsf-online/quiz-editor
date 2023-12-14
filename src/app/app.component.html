@@ -16,7 +16,7 @@
             [class.active]="q === selectedQuiz"
             [style.text-decoration]="q.markedForDelete ? 'line-through' : 'inherit'"
           >
-            <span class="text-truncate mr-3">
+            <span class="text-truncate mr-3"> <!-- Bootstrap truncates the quiz name -->
               {{ q.quizName }}
             </span>
             <small class="font-itallic font-weight-lighter text-nowrap">
