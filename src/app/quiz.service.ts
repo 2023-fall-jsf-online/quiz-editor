@@ -13,7 +13,7 @@ export interface ShapeForSavingEditedQuizzes {
   quiz: string;
   questions: { question: string; }[];
 }
-​
+
 export interface ShapeForSavingNewQuizzes {
   quizName: string;
   quizQuestions: string[];
