@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService } from './quiz.service';
+import { QuizFromWeb, QuizService } from './quiz.service';
 
 interface QuizDisplay {
   quizName: string;
   quizQuestions: QuestionDisplay[];
   markedForDelete: boolean;
   newlyAddedQuiz: boolean;
+  naiveQuizCheckSum: string; // generate one string of the un-edited quiz
 }
 
 interface QuestionDisplay {
@@ -28,6 +29,14 @@ export class AppComponent implements OnInit {
   loading = true;
   errorLoadingQuizzes = false;
 
+  /**
+   * generates the naivie quiz checkSum
+   */
+  generateNaiveQuizCheckSum = (quiz: QuizFromWeb) => {
+    return quiz.name + quiz.questions.map(x => '~' + x.name).join('');
+    
+  };
+
   loadQuizzesFromCloud = async () => {
 
     try {
@@ -41,6 +50,7 @@ export class AppComponent implements OnInit {
         }))
         , markedForDelete: false
         , newlyAddedQuiz: false
+        , naiveQuizCheckSum: this.generateNaiveQuizCheckSum(x)
       }));      
 
       this.loading = false;
@@ -71,6 +81,7 @@ export class AppComponent implements OnInit {
       , quizQuestions: []
       , markedForDelete: false
       , newlyAddedQuiz: true
+      , naiveQuizCheckSum: ""
     };
 
     this.quizzes = [
@@ -187,5 +198,20 @@ export class AppComponent implements OnInit {
     return this.getAddedQuizzes().length;
   }
   
+
+  /**
+   * Edited Quizzes
+   */
+  getEditedQuizzes = () => {
+    return this.quizzes.filter(x => 
+        x.quizName + x.quizQuestions.map(y => '~' + y.questionName).join('') !== x.naiveQuizCheckSum
+        && !x.newlyAddedQuiz
+        && !x.markedForDelete
+      );   
+  };
+
+  get editedQuizCount() {
+    return this.getEditedQuizzes().length;
+  }
 
 }

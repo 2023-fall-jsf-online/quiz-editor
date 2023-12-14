@@ -68,12 +68,12 @@
           >
             +{{ addedQuizCount }}
           </span>
-          <!-- <span 
-            class="badge bg-light ml-1"
-
+          <span 
+            class="badge bg-info ml-1"
+            *ngIf="editedQuizCount > 0"
           >
-            +4
-          </span> -->
+            *{{ editedQuizCount }}
+          </span>
         </button>
         <button 
           class="btn btn-link"
