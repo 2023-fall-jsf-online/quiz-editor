@@ -68,6 +68,12 @@
           >
             +{{ addedQuizCount }}
           </span>
+          <span
+          class="badge bg-secondary ms-1"
+          *ngIf="editedQuizCount > 0"
+        >
+          *{{ addedQuizCount }}
+        </span>
         </button>
         <button 
         class="btn btn-link"
@@ -84,7 +90,7 @@
           <input 
             type="text"
             [(ngModel)]="selectedQuiz.quizName"
-            class="form-control"
+           class="form-control"
             placeholder="Enter quiz name"
           />
         </div>
