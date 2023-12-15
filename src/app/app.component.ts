@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  loading = true;
   errorLoadingQuizzes = false;
 
   loadQuizzesFromCloud = async () => {
@@ -31,25 +32,26 @@ export class AppComponent implements OnInit {
     try {
       const quizzes = await this.quizSvc.loadQuizzes() ?? [];
       console.log(quizzes);
+
       this.quizzes = quizzes.map(x => ({
         quizName: x.name
-        , quizQuestions: x.questions.map(y =>({
-          questionName:y.name
-
+        , quizQuestions: x.questions.map(y => ({
+          questionName: y.name
         }))
         , markedForDelete: false
-      }));
+      }));      
+
+      this.loading = false;
     }
     catch (err) {
       console.error(err);
       this.errorLoadingQuizzes = true;
+      this.loading = false;      
     }
   };
 
   ngOnInit() {
-
     this.loadQuizzesFromCloud();
-
   }
 
   quizzes: QuizDisplay[] = [];
@@ -94,57 +96,59 @@ export class AppComponent implements OnInit {
     }
   };
 
-  jsPromiseOne = () => {
+
+  jsPromisesOne = () => {
     const n = this.quizSvc.getMagicNumber(true);
-    console.log(n);
+    console.log(n); // ? ? ? 
 
     n.then(
       number => {
         console.log(number);
 
         const n2 = this.quizSvc.getMagicNumber(true);
-        console.log(n2);
-
-        n2.then(x => console.log(x)).catch(e => console.error(e))
+        console.log(n2); // ? ? ?
+        
+        n2.then(x => console.log(x)).catch(e => console.error(e));
       }
-    ).catch (
+    ).catch(
       err => {
         console.error(err);
       }
     )
   };
 
-  jsPromiseTwo = async () => {
+  jsPromisesTwo = async () => {
 
     try {
       const x = await this.quizSvc.getMagicNumber(true);
-      console.log(x);
+      console.log(x); // ? ? ?
 
       const y = await this.quizSvc.getMagicNumber(true);
-      console.log(y);
-      }
-
-      catch (err) {
-        console.error(err);
-      }
+      console.log(y); // ? ? ?
+    }
+    
+    catch (err) {
+      console.error(err);
+    }
   };
 
-  jsPromiseThree = async () => {
+  jsPromisesThree = async () => {
 
     try {
       const x = this.quizSvc.getMagicNumber(true);
-      console.log(x);
+      console.log(x); // ? ? ?
 
       const y = this.quizSvc.getMagicNumber(true);
-      console.log(y);
+      console.log(y); // ? ? ?
 
       const results = await Promise.all([x, y]);
-      //const results = await Promise.race([x, y]);
-      console.log(results);
-      }
-
-      catch (err) {
-        console.error(err);
-      }
+      // const results = await Promise.race([x, y]);
+      console.log(results); // ? ? ?
+    }
+    
+    catch (err) {
+      console.error(err);
+    }
   };
+
 }
